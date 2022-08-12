@@ -69,7 +69,7 @@ class SelectImageActivity : AppCompatActivity() {
         }
     }
 
-    /** Save the permission request count on a rotate  */
+    /** Guarda el recuento de solicitudes de permiso en una rotación */
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
@@ -77,9 +77,9 @@ class SelectImageActivity : AppCompatActivity() {
     }
 
     /**
-     * Request permissions twice - if the user denies twice then show a toast about how to update
-     * the permission for storage. Also disable the button if we don't have access to pictures on
-     * the device.
+     * Solicitar permisos dos veces: si el usuario niega dos veces, muestre un brindis sobre cómo actualizar
+     * el permiso para el almacenaje. También deshabilite el botón si no tenemos acceso a las imágenes en
+     * el dispositivo.
      */
     private fun requestPermissionsIfNecessary() {
         if (!checkAllPermissions()) {
@@ -101,7 +101,7 @@ class SelectImageActivity : AppCompatActivity() {
         }
     }
 
-    /** Permission Checking  */
+    /** Comprobación de permisos */
     private fun checkAllPermissions(): Boolean {
         var hasPermissions = true
         for (permission in permissions) {
@@ -126,7 +126,7 @@ class SelectImageActivity : AppCompatActivity() {
         }
     }
 
-    /** Image Selection  */
+    /** Selección de imagen */
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
@@ -147,7 +147,7 @@ class SelectImageActivity : AppCompatActivity() {
         } ?: intent.data
 
         if (imageUri == null) {
-            Timber.e("Invalid input image Uri.")
+            Timber.e("Uri de imagen de entrada no válido.")
             return
         }
 

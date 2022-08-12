@@ -50,10 +50,6 @@ class BlurViewModel(application: Application) : AndroidViewModel(application) {
         workManager.cancelUniqueWork(IMAGE_MANIPULATION_WORK_NAME)
     }
 
-    /**
-     * Creates the input data bundle which includes the Uri to operate on
-     * @return Data which contains the Image Uri as a String
-     */
     private fun createInputDataForUri(): Data {
         val builder = Data.Builder()
         imageUri?.let {
@@ -62,10 +58,7 @@ class BlurViewModel(application: Application) : AndroidViewModel(application) {
         return builder.build()
     }
 
-    /**
-     * Create the WorkRequest to apply the blur and save the resulting image
-     * @param blurLevel The amount to blur the image
-     */
+
     internal fun applyBlur(blurLevel: Int) {
         // Add WorkRequest to Cleanup temporary images
         var continuation = workManager
@@ -79,9 +72,9 @@ class BlurViewModel(application: Application) : AndroidViewModel(application) {
         for (i in 0 until blurLevel) {
             val blurBuilder = OneTimeWorkRequestBuilder<BlurWorker>()
 
-            // Input the Uri if this is the first blur operation
-            // After the first blur operation the input will be the output of previous
-            // blur operations.
+            // Ingrese el Uri si esta es la primera operación de desenfoque
+            // Después de la primera operación de desenfoque, la entrada será la salida de la anterior
+            // operaciones de desenfoque.
             if (i == 0) {
                 blurBuilder.setInputData(createInputDataForUri())
             }
@@ -90,19 +83,19 @@ class BlurViewModel(application: Application) : AndroidViewModel(application) {
             continuation = continuation.then(blurBuilder.build())
         }
 
-        // Create charging constraint
+        // Crear restricción de carga
         val constraints = Constraints.Builder()
                 .setRequiresCharging(true)
                 .build()
 
-        // Add WorkRequest to save the image to the filesystem
+        // Agregue WorkRequest para guardar la imagen en el sistema de archivos
         val save = OneTimeWorkRequestBuilder<SaveImageToFileWorker>()
                 .setConstraints(constraints)
                 .addTag(TAG_OUTPUT)
                 .build()
         continuation = continuation.then(save)
 
-        // Actually start the work
+        // Actualmente  comienza el trabajo
         continuation.enqueue()
     }
 
@@ -114,9 +107,6 @@ class BlurViewModel(application: Application) : AndroidViewModel(application) {
         }
     }
 
-    /**
-     * Setters
-     */
     internal fun setImageUri(uri: String?) {
         imageUri = uriOrNull(uri)
     }

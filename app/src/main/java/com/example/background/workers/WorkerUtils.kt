@@ -1,18 +1,3 @@
-/*
- * Copyright (C) 2018 The Android Open Source Project
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
 
 @file:JvmName("WorkerUtils")
 
@@ -47,34 +32,32 @@ import java.io.IOException
 import java.util.UUID
 
 /**
- * Create a Notification that is shown as a heads-up notification if possible.
+ * Cree una notificación que se muestre como una notificación de advertencia si es posible.
  *
- * For this codelab, this is used to show a notification so that you know when different steps
- * of the background work chain are starting
+ * Para este laboratorio de código, esto se usa para mostrar una notificación para que sepa cuándo se realizan los diferentes pasos.
+ * de la cadena de trabajo de fondo están comenzando
  *
- * @param message Message shown on the notification
- * @param context Context needed to create Toast
  */
 fun makeStatusNotification(message: String, context: Context) {
 
-    // Make a channel if necessary
+    // Hacer un canal si es necesario
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-        // Create the NotificationChannel, but only on API 26+ because
-        // the NotificationChannel class is new and not in the support library
+        // Cree el canal de notificación, pero solo en API 26+ porque
+        // la clase NotificationChannel es nueva y no está en la biblioteca de soporte
         val name = VERBOSE_NOTIFICATION_CHANNEL_NAME
         val description = VERBOSE_NOTIFICATION_CHANNEL_DESCRIPTION
         val importance = NotificationManager.IMPORTANCE_HIGH
         val channel = NotificationChannel(CHANNEL_ID, name, importance)
         channel.description = description
 
-        // Add the channel
+        // Agregar el canal
         val notificationManager =
                 context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager?
 
         notificationManager?.createNotificationChannel(channel)
     }
 
-    // Create the notification
+    // Crea la notificación
     val builder = NotificationCompat.Builder(context, CHANNEL_ID)
             .setSmallIcon(R.drawable.ic_launcher_foreground)
             .setContentTitle(NOTIFICATION_TITLE)
@@ -82,12 +65,12 @@ fun makeStatusNotification(message: String, context: Context) {
             .setPriority(NotificationCompat.PRIORITY_HIGH)
             .setVibrate(LongArray(0))
 
-    // Show the notification
+    //Mostrando la notificación
     NotificationManagerCompat.from(context).notify(NOTIFICATION_ID, builder.build())
 }
 
 /**
- * Method for sleeping for a fixed about of time to emulate slower work
+ * Método para dormir durante un tiempo fijo para emular un trabajo más lento
  */
 fun sleep() {
     try {
@@ -98,22 +81,16 @@ fun sleep() {
 
 }
 
-/**
- * Blurs the given Bitmap image
- * @param bitmap Image to blur
- * @param applicationContext Application context
- * @return Blurred bitmap image
- */
 @WorkerThread
 fun blurBitmap(bitmap: Bitmap, applicationContext: Context): Bitmap {
     lateinit var rsContext: RenderScript
     try {
 
-        // Create the output bitmap
+        // Crea el mapa de bits de salida
         val output = Bitmap.createBitmap(
                 bitmap.width, bitmap.height, bitmap.config)
 
-        // Blur the image
+        // Desenfocar la imagen
         rsContext = RenderScript.create(applicationContext, RenderScript.ContextType.DEBUG)
         val inAlloc = Allocation.createFromBitmap(rsContext, bitmap)
         val outAlloc = Allocation.createTyped(rsContext, inAlloc.type)
@@ -131,19 +108,13 @@ fun blurBitmap(bitmap: Bitmap, applicationContext: Context): Bitmap {
     }
 }
 
-/**
- * Writes bitmap to a temporary file and returns the Uri for the file
- * @param applicationContext Application context
- * @param bitmap Bitmap to write to temp file
- * @return Uri for temp file with bitmap
- * @throws FileNotFoundException Throws if bitmap file cannot be found
- */
+
 @Throws(FileNotFoundException::class)
 fun writeBitmapToFile(applicationContext: Context, bitmap: Bitmap): Uri {
     val name = String.format("blur-filter-output-%s.png", UUID.randomUUID().toString())
     val outputDir = File(applicationContext.filesDir, OUTPUT_PATH)
     if (!outputDir.exists()) {
-        outputDir.mkdirs() // should succeed
+        outputDir.mkdirs()
     }
     val outputFile = File(outputDir, name)
     var out: FileOutputStream? = null

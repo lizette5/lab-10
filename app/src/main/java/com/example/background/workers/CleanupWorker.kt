@@ -1,18 +1,3 @@
-/*
- * Copyright (C) 2018 The Android Open Source Project
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
 
 package com.example.background.workers
 
@@ -31,7 +16,7 @@ class CleanupWorker(ctx: Context, params: WorkerParameters) : Worker(ctx, params
     override fun doWork(): Result {
         // Makes a notification when the work starts and slows down the work so that
         // it's easier to see each WorkRequest start, even on emulated devices
-        makeStatusNotification("Cleaning up old temporary files", applicationContext)
+        makeStatusNotification("Limpieza de archivos temporales antiguos", applicationContext)
         sleep()
 
         return try {
@@ -43,7 +28,7 @@ class CleanupWorker(ctx: Context, params: WorkerParameters) : Worker(ctx, params
                         val name = entry.name
                         if (name.isNotEmpty() && name.endsWith(".png")) {
                             val deleted = entry.delete()
-                            Timber.i("Deleted $name - $deleted")
+                            Timber.i("Eliminando $name - $deleted")
                         }
                     }
                 }

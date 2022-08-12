@@ -135,7 +135,7 @@ class BlurActivity : AppCompatActivity() {
     }
 
     /**
-     * Shows and hides views for when the Activity is processing an image
+     * Muestra y oculta vistas cuando la actividad está procesando una imagen
      */
     private fun showWorkInProgress() {
         with(binding) {
@@ -147,7 +147,7 @@ class BlurActivity : AppCompatActivity() {
     }
 
     /**
-     * Shows and hides views for when the Activity is done processing an image
+     * Muestra y oculta vistas para cuando la Actividad termine de procesar una imagen
      */
     private fun showWorkFinished() {
         with(binding) {

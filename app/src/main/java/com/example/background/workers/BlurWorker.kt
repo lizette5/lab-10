@@ -1,18 +1,3 @@
-/*
- * Copyright (C) 2018 The Android Open Source Project
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
 
 package com.example.background.workers
 
@@ -34,7 +19,7 @@ class BlurWorker(ctx: Context, params: WorkerParameters) : Worker(ctx, params) {
 
         val resourceUri = inputData.getString(KEY_IMAGE_URI)
 
-        makeStatusNotification("Blurring image", appContext)
+        makeStatusNotification("Imagen borrosa", appContext)
         (0..100 step 10).forEach {
             setProgressAsync(workDataOf(PROGRESS to it))
             sleep()
@@ -43,8 +28,8 @@ class BlurWorker(ctx: Context, params: WorkerParameters) : Worker(ctx, params) {
 
         return try {
             if (TextUtils.isEmpty(resourceUri)) {
-                Timber.e("Invalid input uri")
-                throw IllegalArgumentException("Invalid input uri")
+                Timber.e("URI de entrada no válido")
+                throw IllegalArgumentException("URI de entrada no válido")
             }
 
             val resolver = appContext.contentResolver
@@ -61,7 +46,7 @@ class BlurWorker(ctx: Context, params: WorkerParameters) : Worker(ctx, params) {
 
             Result.success(outputData)
         } catch (throwable: Throwable) {
-            Timber.e(throwable, "Error applying blur")
+            Timber.e(throwable, "Error al aplicar desenfoque")
             Result.failure()
         }
     }
