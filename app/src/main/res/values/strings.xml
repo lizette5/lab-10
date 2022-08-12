@@ -1,0 +1,25 @@
+
+<resources>
+    <string name="app_name">LAB 10</string>
+
+    <!-- Titles -->
+    <string name="blur_title">Seleccione la cantidad de desenfoque</string>
+
+    <!-- Buttons -->
+    <string name="select_image">Seleccionar imagen</string>
+    <string name="go">Go</string>
+    <string name="see_file">Ver Archivo</string>
+
+    <!-- Content descriptions -->
+    <string name="description_image">La imagen para desenfocar y guardar</string>
+
+    <!-- Blur levels -->
+    <string name="blur_lv_1">Un poco borrosa</string>
+    <string name="blur_lv_2">Mas borrosa</string>
+    <string name="blur_lv_3">La mas borrosa</string>
+    <string name="cancel_work">Cancel Work</string>
+
+    <!-- Messages -->
+    <string name="set_permissions_in_settings">Go to Settings -> Apps and Notifications ->
+        WorkManager Demo -> App Permissions and grant access to Storage.</string>
+</resources>
