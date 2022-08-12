@@ -8,14 +8,11 @@ import com.example.background.OUTPUT_PATH
 import java.io.File
 import timber.log.Timber
 
-/**
- * Cleans up temporary files generated during blurring process
- */
+
 class CleanupWorker(ctx: Context, params: WorkerParameters) : Worker(ctx, params) {
 
     override fun doWork(): Result {
-        // Makes a notification when the work starts and slows down the work so that
-        // it's easier to see each WorkRequest start, even on emulated devices
+
         makeStatusNotification("Limpieza de archivos temporales antiguos", applicationContext)
         sleep()
 

@@ -25,8 +25,7 @@ class DifuminadoViewModel(application: Application) : AndroidViewModel(applicati
     internal val progressWorkInfoItems: LiveData<List<WorkInfo>>
 
     init {
-        // This transformation makes sure that whenever the current work Id changes the WorkInfo
-        // the UI is listening to changes
+
         outputWorkInfos = workManager.getWorkInfosByTagLiveData(TAG_OUTPUT)
         progressWorkInfoItems = workManager.getWorkInfosByTagLiveData(TAG_PROGRESS)
     }
